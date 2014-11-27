@@ -23,11 +23,11 @@ generate_key() ->
 
 -spec encode_key(key()) -> encoded_key().
 encode_key(Key) ->
-  binary_to_list(base64url:encode(Key)).
+  binary_to_list(fernet_b64:encode(Key)).
 
 -spec decode_key(encoded_key()) -> key().
 decode_key(Key) ->
-  base64url:decode(Key).
+  fernet_b64:decode(Key).
 
 -spec generate_token(iolist(), key()) -> encoded_token().
 generate_token(Message, Key) ->
@@ -58,10 +58,10 @@ hmac(Key, Payload) ->
     crypto:hmac(sha256, Key, Payload).
 
 encode_token(Token) ->
-  binary_to_list(base64url:encode(Token)).
+  binary_to_list(fernet_b64:encode(Token)).
 
 decode_token(EncodedToken) ->
-  base64url:decode(EncodedToken).
+  fernet_b64:decode(EncodedToken).
 
 verify_and_decrypt_token(EncodedToken, Key, _TTL, _Now) ->
   %% TODO: Verify - see Ruby source for rules...
@@ -118,7 +118,7 @@ encode_key_test() ->
           62, 142, 212, 81, 238, 129, 60, 135, 247,
           144, 176, 162, 38, 188, 150, 169, 45,
           228, 155, 94, 156, 5, 225, 238>>,
-  ?assertEqual("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4", encode_key(Key)).
+  ?assertEqual("cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=", encode_key(Key)).
 
 decode_key_test() ->
   Key = "cw_0x689RpI-jtRR7oE8h_eQsKImvJapLeSbXpwF4e4=",
