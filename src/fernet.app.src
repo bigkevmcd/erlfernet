@@ -12,5 +12,8 @@
                   base64url,
                   pkcs7
                  ]},
-  {env, []}
+  {env, []},
+  {contributors, ["Kevin McDermott", "Fred Hebert", "Jamu Kakar"]},
+  {licenses, []},
+  {links, [{"Github", "https://github.com/bigkevmcd/erlfernet"}]}
  ]}.
